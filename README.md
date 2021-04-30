@@ -1,4 +1,10 @@
-# Getting Started with Create React App
+# Budget app
+
+Meant to help me keep track of my monthly spending easily, with as few key strokes as possible.
+
+-------
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
