@@ -4,11 +4,16 @@
   --positive: #04493E;
   --negative: #7D1041;
   --font: 'Rubik';
+  --light: 300;
+  --regular: 500;
+  --bold: 700;
 }
 
 body {
   margin: 0;
+  box-sizing: border-box;
   font-family: var(--font), sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 20px;
 }
