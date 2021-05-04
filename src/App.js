@@ -4,12 +4,6 @@ import CurrentNumbers from './components/CurrentNumbers';
 import TransactionHistory from './components/TransactionHistory';
 
 const Main = styled.section`
-  width: 100vw;
-  max-width: 100%;
-  height: 100vh;
-  max-height: 100%;
-  background-color: var(--background);
-  color: var(--text);
   display: flex;
   flex-direction: column;
   place-items: center;

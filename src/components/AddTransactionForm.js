@@ -1,7 +1,9 @@
 import styled from 'styled-components';
+// import { useState, useEffect } from 'react';
 
-const Wrapper = styled.section`
-  border: 2px solid red;
+// styles
+const Form = styled.form`
+  // border: 2px solid red;
   width: 90%;
   margin: 2% auto 10%;  
   display: flex;
@@ -30,13 +32,43 @@ const Button = styled.button`
   font-size: 1.05rem;
 `;
 
+// state & logic
+async function handleSubmit(event) {
+  event.preventDefault();
+  const newItem = event.target.elements.newTrans.value;
+  const itemStore = event.target.elements.newTransStore.value;
+
+  await fetch(`../../.netlify/functions/airtableWriteValue?amount=${newItem}&store=${itemStore}`)
+    .then(res => console.log(res));
+}
+
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const data = await fetch('../../.netlify/functions/airtableReadMonth')
+  //       .then(res => res.json());
+  //     // console.log(data);
+  //     const allNumbers = data.map(item => item.Amount);
+  //     // console.log(allNumbers);
+  //     const total = allNumbers.reduce((first, second) => {
+  //       return first + second;
+  //     })
+  //     setAmtTotal(total);
+  //   }
+  //   fetchData();
+  // }, [])
+
+
+
+// final render function
 function AddTransactionForm() {
   return (
-    <Wrapper>
+    <Form onSubmit={handleSubmit}>
       <Label htmlFor="newTrans">How much did you spend?</Label>
-      <Input type="text" id="newTrans" placeholder="Enter amount" />
+      <Input type="number" step="0.01" id="newTrans" placeholder="Enter amount" />
+      <Label htmlFor="newTransStore">Where did you buy it?</Label>
+      <Input type="text" id="newTransStore" placeholder="Store name" />
       <Button type="submit">Record Transaction</Button>
-    </Wrapper>
+    </Form>
   )
 }
 
