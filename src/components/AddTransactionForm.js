@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-// import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 // styles
 const Form = styled.form`
@@ -33,31 +33,29 @@ const Button = styled.button`
 `;
 
 // state & logic
-async function handleSubmit(event) {
-  event.preventDefault();
-  const newItem = event.target.elements.newTrans.value;
-  const itemStore = event.target.elements.newTransStore.value;
-
-  await fetch(`../../.netlify/functions/airtableWriteValue?amount=${newItem}&store=${itemStore}`)
-    .then(res => console.log(res));
+function titleCase(str) {
+  const splitStr = str.split(' ').map(val => {
+    let lower = val.toLowerCase();
+    const firstLetter = lower.slice(0, 1);
+    return `${firstLetter.toUpperCase()}${lower.slice(1)}`;
+  })
+  console.log(splitStr.join(' '));
+  return splitStr.join(' ');
 }
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const data = await fetch('../../.netlify/functions/airtableReadMonth')
-  //       .then(res => res.json());
-  //     // console.log(data);
-  //     const allNumbers = data.map(item => item.Amount);
-  //     // console.log(allNumbers);
-  //     const total = allNumbers.reduce((first, second) => {
-  //       return first + second;
-  //     })
-  //     setAmtTotal(total);
-  //   }
-  //   fetchData();
-  // }, [])
+async function handleSubmit(event) {
+  event.preventDefault();
+  const itemAmt = event.target.elements.newTrans.value;
+  const itemStore = titleCase(event.target.elements.newTransStore.value);
 
-
+  await fetch(`../../.netlify/functions/airtableWriteValue?amount=${itemAmt}&store=${itemStore}`)
+    .then(res => res.json())  
+    .then(res => {
+      console.log(res.id, res.fields);
+      event.target.elements.newTrans.value = '';
+      event.target.elements.newTransStore.value = '';
+    });
+}
 
 // final render function
 function AddTransactionForm() {

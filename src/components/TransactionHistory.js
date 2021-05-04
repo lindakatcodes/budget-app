@@ -57,7 +57,6 @@ const RecordInfo = styled.span`
 function formatCurrency(amt) {
   const cents = amt.toFixed(2);
   return `$${cents}`
-
 }
 
 function RecordData() {
