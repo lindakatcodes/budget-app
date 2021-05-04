@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { useState } from 'react';
 
 // styles
 const Form = styled.form`
@@ -32,33 +31,33 @@ const Button = styled.button`
   font-size: 1.05rem;
 `;
 
-// state & logic
-function titleCase(str) {
-  const splitStr = str.split(' ').map(val => {
-    let lower = val.toLowerCase();
-    const firstLetter = lower.slice(0, 1);
-    return `${firstLetter.toUpperCase()}${lower.slice(1)}`;
-  })
-  console.log(splitStr.join(' '));
-  return splitStr.join(' ');
-}
+function AddTransactionForm(props) {
+  // makes each word Title Case, for data integrity
+  function titleCase(str) {
+    const splitStr = str.split(' ').map(val => {
+      let lower = val.toLowerCase();
+      const firstLetter = lower.slice(0, 1);
+      return `${firstLetter.toUpperCase()}${lower.slice(1)}`;
+    })
+    return splitStr.join(' ');
+  }
 
-async function handleSubmit(event) {
-  event.preventDefault();
-  const itemAmt = event.target.elements.newTrans.value;
-  const itemStore = titleCase(event.target.elements.newTransStore.value);
+  // add the new data to Airtable & set it to the lastAdded state in App.js
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const itemAmt = event.target.elements.newTrans.value;
+    const itemStore = titleCase(event.target.elements.newTransStore.value);
 
-  await fetch(`../../.netlify/functions/airtableWriteValue?amount=${itemAmt}&store=${itemStore}`)
-    .then(res => res.json())  
-    .then(res => {
-      console.log(res.id, res.fields);
-      event.target.elements.newTrans.value = '';
-      event.target.elements.newTransStore.value = '';
-    });
-}
+    await fetch(`../../.netlify/functions/airtableWriteValue?amount=${itemAmt}&store=${itemStore}`)
+      .then(res => res.json())  
+      .then(res => {
+        props.setNewItem(res.fields);
+        event.target.elements.newTrans.value = '';
+        event.target.elements.newTransStore.value = '';
+      });
+  }
 
-// final render function
-function AddTransactionForm() {
+  // rendered component 
   return (
     <Form onSubmit={handleSubmit}>
       <Label htmlFor="newTrans">How much did you spend?</Label>

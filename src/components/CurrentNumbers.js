@@ -1,11 +1,10 @@
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
 
 // styles
 const Wrapper = styled.section`
   // border: 2px solid blue;
   width: 90%;
-  margin: 2% auto 10%;
+  margin: 6% auto 10%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -47,31 +46,13 @@ const CNAmount = styled.p`
   }
 `;
 
-// state & logic
-function NumberData() {
-  const [amtTotal, setAmtTotal] = useState(0);
+
+function CurrentNumbers({amtTotal}) {
+  // values to see what the main budget is and how much money is left
   const startValue = 400;
   let leftValue = startValue - amtTotal;
 
-  useEffect(() => {
-    async function fetchData() {
-      const data = await fetch('../../.netlify/functions/airtableReadMonth', {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json'
-        },
-      })
-        .then(res => res.json());
-      // console.log(data);
-      const allNumbers = data.map(item => item.Amount);
-      // console.log(allNumbers);
-      const total = allNumbers.length < 1 ? 0 : allNumbers.reduce((first, second) => {
-        return first + second;
-      })
-      setAmtTotal(total);
-    }
-    fetchData();
-  }, [])
+  // final rendered function
   return (
     <Wrapper>
       <DivMain>
@@ -87,13 +68,6 @@ function NumberData() {
         <CNAmount>{`$${amtTotal.toFixed(2)}`}</CNAmount>
       </Div>
     </Wrapper>
-  )
-}
-
-// final rendered function
-function CurrentNumbers() {
-  return (
-    <NumberData></NumberData>
   )
 }
 

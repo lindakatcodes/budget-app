@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
 
 // styles
 const Wrapper = styled.section`
@@ -53,40 +52,27 @@ const RecordInfo = styled.span`
   }
 `;
 
-// state & logic
-function formatCurrency(amt) {
-  const cents = amt.toFixed(2);
-  return `$${cents}`
-}
-
-function RecordData() {
-  const [records, setRecords] = useState([]);
-
-  useEffect(() => {
-    async function fetchData() {
-      const data = await fetch('../../.netlify/functions/airtableReadAll')
-      .then(res => res.json());
-      // console.log(data);
-      setRecords(data);
-    }
-    fetchData();
-  }, [])
-  return (
-    records.map(record => <ListItem key={record['Transaction ID']}>
-      <RecordInfo>{record.Date}</RecordInfo>
-      <RecordInfo className="store">{record.Store}</RecordInfo>
-      <RecordInfo className="currency">{formatCurrency(record.Amount)}</RecordInfo>
-    </ListItem>)
-  )
-}
-
-// final rendered function
-function TransactionHistory() {
+function TransactionHistory({records}) {
+  // format all money fields to be two decimal places, for consistent look
+  function formatCurrency(amt) {
+    const cents = amt.toFixed(2);
+    return `$${cents}`
+  }
+  
+  // final rendered function
   return (
     <Wrapper>
       <TableTitle>Transaction History</TableTitle>
       <List>
-        <RecordData></RecordData>
+        {records.map(record => {
+          return (
+            <ListItem key={record['Transaction ID']}>
+              <RecordInfo>{record.Date}</RecordInfo>
+              <RecordInfo className="store">{record.Store}</RecordInfo>
+              <RecordInfo className="currency">{formatCurrency(record.Amount)}</RecordInfo>
+            </ListItem>
+          )
+        })}
       </List>
     </Wrapper>
   )

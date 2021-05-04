@@ -4,7 +4,6 @@ exports.handler = async function(event) {
 
   const amt = parseFloat(event.queryStringParameters.amount);
   const place = event.queryStringParameters.store;
-  // console.log(typeof(amt), typeof(place));
 
   try {
     return await base('Transactions')
