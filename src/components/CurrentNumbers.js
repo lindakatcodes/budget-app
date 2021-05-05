@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Wrapper = styled.section`
   // border: 2px solid blue;
   width: 90%;
-  margin: 6% auto 10%;
+  margin: 7% auto 5%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -44,6 +44,14 @@ const CNAmount = styled.p`
     font-size: 1.6rem;
     font-weight: var(--bold);
   }
+
+  &.negative {
+    color: var(--negative);
+  }
+  
+  &.positive {
+    color: var(--positive);
+  }
 `;
 
 
@@ -57,7 +65,7 @@ function CurrentNumbers({amtTotal}) {
     <Wrapper>
       <DivMain>
         <CNTitle className="availableTitle">Money Available</CNTitle>
-        <CNAmount className="availableAmt">{`$${leftValue.toFixed(2)}`}</CNAmount>
+        <CNAmount className={`availableAmt ${leftValue < 0 ? 'negative' : 'positive'}`}>{`$${leftValue.toFixed(2)}`}</CNAmount>
       </DivMain>
       <Div>
         <CNTitle>Started With</CNTitle>

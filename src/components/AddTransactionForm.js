@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useToasts } from 'react-toast-notifications'
 
 // styles
 const Form = styled.form`
@@ -32,6 +33,9 @@ const Button = styled.button`
 `;
 
 function AddTransactionForm(props) {
+  // react-toast variable & custom toast
+  const { addToast } = useToasts();
+
   // makes each word Title Case, for data integrity
   function titleCase(str) {
     const splitStr = str.split(' ').map(val => {
@@ -51,9 +55,24 @@ function AddTransactionForm(props) {
     await fetch(`../../.netlify/functions/airtableWriteValue?amount=${itemAmt}&store=${itemStore}`)
       .then(res => res.json())  
       .then(res => {
+        addToast('Success! Receipt saved.', { 
+          appearance: 'success',
+          autoDismiss: true,
+          autoDismissTimeout: 3000,
+          placement: 'top-center',
+        });
         props.setNewItem(res.fields);
         event.target.elements.newTrans.value = '';
         event.target.elements.newTransStore.value = '';
+      })
+      .catch(err => {
+        addToast(`Sorry! Something went wrong.`, { 
+          appearance: 'error',
+          autoDismiss: true,
+          autoDismissTimeout: 3000,
+          placement: 'top-center',
+        });
+        console.log(err);
       });
   }
 

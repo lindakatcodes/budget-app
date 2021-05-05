@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
+import { ToastProvider } from 'react-toast-notifications';
+
 import AddTransactionForm from './components/AddTransactionForm';
 import CurrentNumbers from './components/CurrentNumbers';
+import TimeRemaining from './components/TimeRemaining';
 import TransactionHistory from './components/TransactionHistory';
 
 // styles
@@ -47,12 +50,15 @@ function App() {
 
   // main render function for the app
   return (
-    <Main>
-      <Title>Budget Time!</Title>
-      <AddTransactionForm setNewItem={setLastAdded} />
-      <CurrentNumbers amtTotal={amtTotal} />
-      <TransactionHistory records={records} />
-    </Main>
+    <ToastProvider>
+      <Main>
+        <Title>Budget Time!</Title>
+        <AddTransactionForm setNewItem={setLastAdded} />
+        <CurrentNumbers amtTotal={amtTotal} />
+        <TimeRemaining />
+        <TransactionHistory records={records} />
+      </Main>
+    </ToastProvider>
   );
 }
 
