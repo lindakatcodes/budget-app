@@ -16,7 +16,7 @@ const Main = styled.section`
 
 const Title = styled.h1`
   font-weight: var(--bold);
-  font-size: 2.75rem;
+  font-size: 2.5rem;
   width: 90%;
   text-align: center;
   margin: 5% auto;
