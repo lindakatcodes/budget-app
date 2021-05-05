@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 // styles
 const Wrapper = styled.section`
-  // border: 2px solid blue;
   width: 90%;
   margin: 7% auto 5%;
   display: flex;
@@ -11,7 +10,6 @@ const Wrapper = styled.section`
 `;
 
 const Div = styled.div`
-  // border: 2px solid yellow;
   width: 49%;
   text-align: center;
 
@@ -22,26 +20,26 @@ const Div = styled.div`
 
 const DivMain = styled(Div)`
   width: 99%;
-  border-bottom: 4px solid var(--text);
+  border-bottom: 3px solid var(--text);
 `;
 
 const CNTitle = styled.h2`
-  font-size: 1.3rem;
-  margin: 4% 3%;
+  font-size: 1.2rem;
+  margin: 3%;
   font-weight: var(--bold);
 
   &.availableTitle {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
 `;
 
 const CNAmount = styled.p`
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: var(--regular);
-  margin: 4% 3%;
+  margin: 3%;
 
   &.availableAmt {
-    font-size: 1.6rem;
+    font-size: 1.35rem;
     font-weight: var(--bold);
   }
 

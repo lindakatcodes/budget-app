@@ -3,9 +3,8 @@ import { useToasts } from 'react-toast-notifications'
 
 // styles
 const Form = styled.form`
-  // border: 2px solid red;
-  width: 90%;
-  margin: 2% auto 10%;  
+  width: 85%;
+  margin: 2% auto 7%;  
   display: flex;
   flex-direction: column;
   gap: 5%;
@@ -17,7 +16,7 @@ const Label = styled.label`
 `;
 
 const Input = styled.input`
-  padding: 4% 2%;
+  padding: 3% 2%;
   border-radius: 4px;
   margin-bottom: 2%;
 `;
@@ -25,7 +24,9 @@ const Input = styled.input`
 const Button = styled.button`
   background-color: var(--text);
   color: var(--background);
-  padding: 5.5% 0;
+  width: 75%;
+  align-self: center;
+  padding: 4.5% 0;
   border-radius: 4px;
   border: none;
   font-weight: var(--bold);
