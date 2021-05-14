@@ -21,6 +21,13 @@ const Input = styled.input`
   margin-bottom: 2%;
 `;
 
+const ReturnCheck = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 5%;
+`;
+
 const Button = styled.button`
   background-color: var(--text);
   color: var(--background);
@@ -52,8 +59,9 @@ function AddTransactionForm(props) {
     event.preventDefault();
     const itemAmt = event.target.elements.newTrans.value;
     const itemStore = titleCase(event.target.elements.newTransStore.value);
+    const itemReturn = event.target.elements.newTransType.value;
 
-    await fetch(`../../.netlify/functions/airtableWriteValue?amount=${itemAmt}&store=${itemStore}`)
+    await fetch(`../../.netlify/functions/airtableWriteValue?amount=${itemAmt}&store=${itemStore}&return=${itemReturn}`)
       .then(res => res.json())  
       .then(res => {
         addToast('Success! Receipt saved.', { 
@@ -84,6 +92,10 @@ function AddTransactionForm(props) {
       <Input type="number" step="0.01" id="newTrans" placeholder="Enter amount" />
       <Label htmlFor="newTransStore">Where did you buy it?</Label>
       <Input type="text" id="newTransStore" placeholder="Store name" />
+      <ReturnCheck>
+        <Label htmlFor="newTransType">Is this a return?</Label>
+        <Input type="checkbox" id="newTransType" name="return" value={true} />
+      </ReturnCheck>
       <Button type="submit">Record Transaction</Button>
     </Form>
   )

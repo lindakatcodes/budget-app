@@ -25,17 +25,12 @@ const ListItem = styled.li`
   align-items: center;
   margin: 1%;
   padding: 2%;
-
-  &:nth-child(even) {
-    background-color: var(--text);
-    color: var(--background);
-  }
+  border-bottom: 2px solid var(--text);
 `;
 
 const RecordInfo = styled.span`
   font-size: 0.95rem;
   font-weight: var(--light);
-  padding-left: 3%;
   
   &.store {
     padding-left: 6%;
@@ -43,13 +38,22 @@ const RecordInfo = styled.span`
   
   &.currency {
     justify-self: end;
+    font-weight: var(--bold);
+  }
+
+  &.negative {
+    color: var(--negative);
+  }
+  
+  &.positive {
+    color: var(--positive);
   }
 `;
 
 function TransactionHistory({records}) {
   // format all money fields to be two decimal places, for consistent look
   function formatCurrency(amt) {
-    const cents = amt.toFixed(2);
+    const cents = Math.abs(amt).toFixed(2);
     return `$${cents}`
   }
   
@@ -63,7 +67,7 @@ function TransactionHistory({records}) {
             <ListItem key={record['Transaction ID']}>
               <RecordInfo>{record.Date}</RecordInfo>
               <RecordInfo className="store">{record.Store}</RecordInfo>
-              <RecordInfo className="currency">{formatCurrency(record.Amount)}</RecordInfo>
+              <RecordInfo className={`currency ${record.Amount > 0 ? 'negative' : 'positive'}`}>{formatCurrency(record.Amount)}</RecordInfo>
             </ListItem>
           )
         })}
