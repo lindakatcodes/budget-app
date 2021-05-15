@@ -22,7 +22,7 @@ const Label = styled.label`
 const Input = styled.input`
   padding: 3% 2%;
   border-radius: 4px;
-  margin-bottom: 6%;
+  margin-bottom: 4%;
 `;
 
 const ReturnCheck = styled.div`

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 // styles
 const Wrapper = styled.section`
   width: 90%;
-  margin: 4% auto;
+  margin: 3% auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

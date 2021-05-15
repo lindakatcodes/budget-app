@@ -19,7 +19,7 @@ const Title = styled.h1`
   font-size: 2.5rem;
   width: 90%;
   text-align: center;
-  margin: 5% auto;
+  margin: 5% auto 3%;
 `;
 
 function App() {
