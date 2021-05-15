@@ -59,7 +59,7 @@ function AddTransactionForm(props) {
     event.preventDefault();
     const itemAmt = event.target.elements.newTrans.value;
     const itemStore = titleCase(event.target.elements.newTransStore.value);
-    const itemReturn = event.target.elements.newTransType.value;
+    const itemReturn = event.target.elements.newTransType.checked;
 
     await fetch(`../../.netlify/functions/airtableWriteValue?amount=${itemAmt}&store=${itemStore}&return=${itemReturn}`)
       .then(res => res.json())  
@@ -73,6 +73,7 @@ function AddTransactionForm(props) {
         props.setNewItem(res.fields);
         event.target.elements.newTrans.value = '';
         event.target.elements.newTransStore.value = '';
+        event.target.elements.newTransType.checked = false;
       })
       .catch(err => {
         addToast(`Sorry! Something went wrong.`, { 
@@ -94,7 +95,7 @@ function AddTransactionForm(props) {
       <Input type="text" id="newTransStore" placeholder="Store name" />
       <ReturnCheck>
         <Label htmlFor="newTransType">Is this a return?</Label>
-        <Input type="checkbox" id="newTransType" name="return" value={true} />
+        <Input type="checkbox" id="newTransType" name="return" />
       </ReturnCheck>
       <Button type="submit">Record Transaction</Button>
     </Form>

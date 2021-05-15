@@ -3,7 +3,7 @@ exports.handler = async function(event) {
   const base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base('appF9AXkTCBJHOue6');
 
   const isReturn = event.queryStringParameters.return;
-  const amt = isReturn ? parseFloat(`-${event.queryStringParameters.amount}`) : parseFloat(event.queryStringParameters.amount);
+  const amt = isReturn === 'true' ? parseFloat(`-${event.queryStringParameters.amount}`) : parseFloat(event.queryStringParameters.amount);
   const place = event.queryStringParameters.store;
 
   try {
