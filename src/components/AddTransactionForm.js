@@ -4,28 +4,32 @@ import { useToasts } from 'react-toast-notifications'
 // styles
 const Form = styled.form`
   width: 85%;
-  margin: 2% auto 7%;  
+  margin: 2% auto;  
   display: flex;
   flex-direction: column;
-  gap: 5%;
 `;
 
 const Label = styled.label`
   font-weight: var(--light);
   margin-left: 1%;
+  margin-bottom: 2%;
+
+  &.returnLabel {
+    margin-right: 4%;
+  }
 `;
 
 const Input = styled.input`
   padding: 3% 2%;
   border-radius: 4px;
-  margin-bottom: 2%;
+  margin-bottom: 6%;
 `;
 
 const ReturnCheck = styled.div`
   display: flex;
   justify-content: center;
   align-items: baseline;
-  gap: 5%;
+  margin-bottom: 1%;
 `;
 
 const Button = styled.button`
@@ -94,7 +98,7 @@ function AddTransactionForm(props) {
       <Label htmlFor="newTransStore">Where did you buy it?</Label>
       <Input type="text" id="newTransStore" placeholder="Store name" />
       <ReturnCheck>
-        <Label htmlFor="newTransType">Is this a return?</Label>
+        <Label htmlFor="newTransType" className="returnLabel">Is this a return?</Label>
         <Input type="checkbox" id="newTransType" name="return" />
       </ReturnCheck>
       <Button type="submit">Record Transaction</Button>
